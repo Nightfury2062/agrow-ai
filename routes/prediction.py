@@ -5,8 +5,8 @@ from app.utils import soil_recommendation
 
 router = APIRouter()
 
-@router.post("/predict")
 
+@router.post("/predict")
 def predict(data: CropInput):
 
     crop = predict_crop(data)

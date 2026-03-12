@@ -1,9 +1,10 @@
 import numpy as np
-from app.model_loader import load_model
+from app.model_loader import load_components
+
 
 def predict_crop(data):
 
-    model = load_model()
+    model, scaler, encoder = load_components()
 
     features = np.array([[
         data.nitrogen,
@@ -15,6 +16,13 @@ def predict_crop(data):
         data.rainfall
     ]])
 
-    prediction = model.predict(features)
+    # scale input
+    scaled_features = scaler.transform(features)
 
-    return prediction[0]
+    # predict
+    prediction = model.predict(scaled_features)
+
+    # decode label
+    crop = encoder.inverse_transform(prediction)
+
+    return crop[0]

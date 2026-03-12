@@ -11,5 +11,4 @@ app = FastAPI(
 def root():
     return {"message": "AgroCulture AI Backend Running"}
 
-# include prediction routes
 app.include_router(prediction_router, prefix="/api")
